@@ -38,22 +38,83 @@ public class registro extends AppCompatActivity {
         setContentView(R.layout.activity_registro);
     }
 
-    public void registro(View view)
+    public void registrar(View view)
     {
 
+        boolean bandera=true;
+        EditText entrada = (EditText) findViewById(R.id.editText4);
+        EditText salida = (EditText) findViewById(R.id.editText5);
+        try {
+            entradaa = entrada.getText().toString();
+            salidaa = salida.getText().toString();
+        }catch(Exception e)
+        {
+            bandera=false;
+            entradaa="";
+            salidaa="";
+        }
 
-        EditText entrada = (EditText) findViewById(R.id.timePickerEntrada);
-        EditText salida = (EditText) findViewById(R.id.timePickerSalida);
-        entradaa = entrada.getText().toString();
-        salidaa = salida.getText().toString();
+        if(bandera=true) {
+
+
+            if (entradaa.length() == 5) {
+                bandera = true;
+            } else {
+                bandera = false;
+            }
+            if (bandera == true) {
+
+                if (salidaa.length() == 5) {
+                    bandera = true;
+                } else {
+                    bandera = false;
+                }
+                if (bandera == true) {
+
+                    if (entradaa.substring(2, 3).equals(":")) {
+                        bandera = true;
+                    } else {
+                        bandera = false;
+                    }
+                    if (bandera = true) {
+                        if (salidaa.substring(2, 3).equals(":")) {
+                            bandera = true;
+                        } else {
+                            bandera = false;
+                        }
+                    }
+                }
+            }
+        }
 
 
 
-        Intent intent = new Intent(registro.this, scannerEntrada.class);
+
+
+
+    if(bandera==true) {
+
+        Intent intent = new Intent(registro.this, seguroHorario.class);
         intent.putExtra("entrada", entradaa);
         intent.putExtra("salida", salidaa);
         startActivity(intent);
 
+    }else{
+
+        entrada.setText("");
+        salida.setText("");
+        AlertDialog alertDialog = new AlertDialog.Builder(registro.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("POR FAVOR INGRESA EL FORMATO CORRECTAMENTE DEBE DE SER 00:00");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+
+    }
 
     }
 

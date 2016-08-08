@@ -21,7 +21,10 @@
         <activity android:name=".registro" />
         <activity android:name=".scannerEntrada" />
         <activity android:name=".registroOk" />
-        <activity android:name=".registroFalse"></activity>
+        <activity android:name=".registroFalse" />
+        <activity android:name=".seguroHorario" />
+        <activity android:name=".lista" />
+        <activity android:name=".ayudaIncidencias"></activity>
     </application>
 
 </manifest>

@@ -21,6 +21,7 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 public class scannerEntrada extends AppCompatActivity {
+
     String entradaa;
     String salidaa;
 
