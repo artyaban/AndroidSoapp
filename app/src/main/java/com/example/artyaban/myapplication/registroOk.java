@@ -8,11 +8,12 @@ import android.view.View;
 public class registroOk extends AppCompatActivity {
     String entradaa;
     String salidaa;
+    String horass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_ok);
-
+        horass=getIntent().getExtras().getString("horas");
         entradaa=getIntent().getExtras().getString("entrada");
         salidaa=getIntent().getExtras().getString("salida");
 
@@ -23,6 +24,7 @@ public class registroOk extends AppCompatActivity {
         Intent intent = new Intent(registroOk.this, scannerEntrada.class);
         intent.putExtra("entrada", entradaa);
         intent.putExtra("salida", salidaa);
+        intent.putExtra("horas", horass);
         startActivity(intent);
     }
 

@@ -18,7 +18,7 @@ import org.ksoap2.transport.HttpTransportSE;
 
 
 public class inicio extends AppCompatActivity {
-
+    public static String lider;
     String TAG = "Response";
     Button bt;
 
@@ -101,7 +101,7 @@ public class inicio extends AppCompatActivity {
 
            if(resultString.toString().equals("true"))
            {
-
+                lider=usuarioo;
              Intent cambiar = new Intent(getApplicationContext(), registro.class);
               startActivityForResult(cambiar, 0);
 

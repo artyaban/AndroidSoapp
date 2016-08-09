@@ -1,5 +1,6 @@
 package com.example.artyaban.myapplication;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -27,15 +28,12 @@ public class scannerEntrada extends AppCompatActivity {
 
 
     String TAG = "Response";
-    Button bt;
 
-    String getCel;
     SoapPrimitive resultString;
-    String usuarioo  ;
-    String passwordd;
-    View view2;
-    String numeroempleado;
 
+
+    String numeroempleado="";
+    String horass="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,8 @@ public class scannerEntrada extends AppCompatActivity {
         setContentView(R.layout.activity_scanner_entrada);
         entradaa=getIntent().getExtras().getString("entrada");
         salidaa=getIntent().getExtras().getString("salida");
-
+        horass=getIntent().getExtras().getString("horas");
+        Log.e(TAG, "recreada");
         IntentIntegrator scanIntegrator = new IntentIntegrator(this);
         scanIntegrator.initiateScan();
 
@@ -57,17 +56,12 @@ public class scannerEntrada extends AppCompatActivity {
         if (scanningResult != null) {
 
 
-            //Quiere decir que se obtuvo resultado pro lo tanto:
-            //Desplegamos en pantalla el contenido del código de barra scaneado
-            String scanContent = scanningResult.getContents();
 
+            String scanContent = "";
+            scanContent=scanningResult.getContents();
 
-            //Desplegamos en pantalla el nombre del formato del código de barra scaneado
-
-            String scanFormat = scanningResult.getFormatName();
-
+            numeroempleado = "";
             numeroempleado = scanContent;
-
 
             AsyncCallWS task = new AsyncCallWS();
             task.execute();
@@ -78,11 +72,14 @@ public class scannerEntrada extends AppCompatActivity {
 
 
         }else{
+            scannerEntrada.this.recreate();
+            numeroempleado ="";
+            Intent intent2 = new Intent(scannerEntrada.this,registroFalse.class);
+            intent2.putExtra("entrada",entradaa);
+            intent2.putExtra("salida",salidaa);
+            intent2.putExtra("horas",horass);
+            startActivity(intent2);
 
-            //Quiere decir que NO se obtuvo resultado
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "No se ha recibido datos del scaneo!", Toast.LENGTH_SHORT);
-            toast.show();
         }
     }
 
@@ -98,6 +95,7 @@ public class scannerEntrada extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             Log.i(TAG, "onPreExecute");
+
         }
 
         @Override
@@ -111,23 +109,39 @@ public class scannerEntrada extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             Log.i(TAG, "onPostExecute");
 
+            try{
+
             if(resultString.toString().equals("true"))
             {
-
-
+                numeroempleado ="";
                 Intent intent2 = new Intent(scannerEntrada.this,registroOk.class);
-
                 intent2.putExtra("entrada",entradaa);
                 intent2.putExtra("salida",salidaa);
+                int envhoras = Integer.parseInt(horass);
+                intent2.putExtra("horas",envhoras);
                 startActivity(intent2);
+
+
 
             }else{
-
+                scannerEntrada.this.recreate();
+                numeroempleado ="";
                 Intent intent2 = new Intent(scannerEntrada.this,registroFalse.class);
-
                 intent2.putExtra("entrada",entradaa);
                 intent2.putExtra("salida",salidaa);
+                intent2.putExtra("horas",horass);
                 startActivity(intent2);
+
+            } }catch (Exception err)
+            {   scannerEntrada.this.recreate();
+                numeroempleado ="";
+                Intent intent2 = new Intent(scannerEntrada.this,registroFalse.class);
+                intent2.putExtra("entrada",entradaa);
+                intent2.putExtra("salida",salidaa);
+                intent2.putExtra("horas",horass);
+                startActivity(intent2);
+
+
 
             }
         }
@@ -142,10 +156,13 @@ public class scannerEntrada extends AppCompatActivity {
 
         try {
             SoapObject Request = new SoapObject(NAMESPACE, METHOD_NAME);
-
+            Request.addProperty("idLista",seguroHorario.idLista);
             Request.addProperty("entrada",entradaa);
             Request.addProperty("salida", salidaa);
+            Log.e(TAG, "numero empleado: " + numeroempleado);
             Request.addProperty("numEmpleado",numeroempleado);
+            Request.addProperty("horas",horass);
+
 
 
             SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
@@ -155,11 +172,21 @@ public class scannerEntrada extends AppCompatActivity {
             HttpTransportSE transport = new HttpTransportSE(URL);
 
             transport.call(SOAP_ACTION, soapEnvelope);
+
             resultString = (SoapPrimitive) soapEnvelope.getResponse();
 
 
         } catch (Exception ex) {
-            Log.e(TAG, "Error: " + ex.getMessage());
+           
+            numeroempleado ="";
+            Intent intent2 = new Intent(scannerEntrada.this,registroFalse.class);
+            intent2.putExtra("entrada",entradaa);
+            intent2.putExtra("salida",salidaa);
+            intent2.putExtra("horas",horass);
+            startActivity(intent2);
+
+
+
         }
     }
 

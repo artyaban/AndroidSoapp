@@ -2,18 +2,35 @@ package com.example.artyaban.myapplication;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
 
 public class seguroHorario extends AppCompatActivity {
     String entradaa;
     String salidaa;
     String jornadaString;
+    public static String idLista;
+    String TAG = "Response";
+    Button bt;
+
+    String getCel;
+    SoapPrimitive resultString;
+    String usuarioo  ;
+    String passwordd;
+    View view2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,9 +98,12 @@ public class seguroHorario extends AppCompatActivity {
     public void  si(View view)
     {
 
+
+
         Intent intent = new Intent(seguroHorario.this, scannerEntrada.class);
         intent.putExtra("entrada", entradaa);
         intent.putExtra("salida", salidaa);
+        intent.putExtra("horas",jornadaString);
         startActivity(intent);
 
     }
@@ -93,12 +113,89 @@ public class seguroHorario extends AppCompatActivity {
         Intent intent = new Intent(seguroHorario.this, registro.class);
         intent.putExtra("entrada", entradaa);
         intent.putExtra("salida", salidaa);
+
         startActivity(intent);
 
     }
 
-  //  Intent intent = new Intent(registro.this, scannerEntrada.class);
-  //  intent.putExtra("entrada", entradaa);
-    //intent.putExtra("salida", salidaa);
-   // startActivity(intent);
+
+
+
+
+
+
+    private class AsyncCallWS extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            Log.i(TAG, "onPreExecute");
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Log.i(TAG, "doInBackground");
+            registrar();
+            return null;
+        }
+
+
+        protected void onPostExecute(Void result) {
+            Log.i(TAG, "onPostExecute");
+
+            if(resultString.toString()!="false")
+            {
+                AsyncCallWS task = new AsyncCallWS();
+                task.execute();
+                idLista =resultString.toString();
+                Intent intent2 = new Intent(seguroHorario.this,registroOk.class);
+                intent2.putExtra("entrada",entradaa);
+                intent2.putExtra("salida",salidaa);
+                startActivity(intent2);
+
+            }else{
+
+                Intent intent2 = new Intent(seguroHorario.this,registroFalse.class);
+
+                intent2.putExtra("entrada",entradaa);
+                intent2.putExtra("salida",salidaa);
+                startActivity(intent2);
+
+            }
+        }
+
+    }
+
+    public void registrar() {
+        String SOAP_ACTION = "http://tempuri.org/crearLista";
+        String METHOD_NAME = "crearLista";
+        String NAMESPACE = "http://tempuri.org/";
+        String URL = "http://187.188.159.205:8090/webServiceNomina/Service.asmx";
+
+        try {
+            SoapObject Request = new SoapObject(NAMESPACE, METHOD_NAME);
+
+            Request.addProperty("lider",inicio.lider);
+
+
+            SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            soapEnvelope.dotNet = true;
+            soapEnvelope.setOutputSoapObject(Request);
+
+            HttpTransportSE transport = new HttpTransportSE(URL);
+
+            transport.call(SOAP_ACTION, soapEnvelope);
+            resultString = (SoapPrimitive) soapEnvelope.getResponse();
+
+
+        } catch (Exception ex) {
+            Log.e(TAG, "Error: " + ex.getMessage());
+        }
+    }
+
+
+
+
+
+
+
 }

@@ -2,11 +2,10 @@
 <resources>
 
     <string-array name="cabecera_tabla">
-        <item>Id de la fila</item>
-        <item>Valor</item>
-        <item>Valor 2</item>
-        <item>Valor 3</item>
-        <item>Valor 4</item>
+        <item>INSPECTOR</item>
+        <item>STATUS</item>
+        <item>ICONO</item>
+
     </string-array>
 
 </resources>

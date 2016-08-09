@@ -45,6 +45,7 @@ public class Tabla
         TableRow fila = new TableRow(actividad);
         TableRow.LayoutParams layoutFila = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
         fila.setLayoutParams(layoutFila);
+        tabla.setColumnStretchable(3, true);
 
         String[] arraycabecera = rs.getStringArray(recursocabecera);
         COLUMNAS = arraycabecera.length;
