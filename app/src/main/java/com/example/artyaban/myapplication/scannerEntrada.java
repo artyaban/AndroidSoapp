@@ -8,9 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -23,17 +20,12 @@ import org.ksoap2.transport.HttpTransportSE;
 
 public class scannerEntrada extends AppCompatActivity {
 
-    String entradaa;
-    String salidaa;
-
-
-    String TAG = "Response";
-
-    SoapPrimitive resultString;
-
-
-    String numeroempleado="";
-    String horass="";
+    public String entradaa;
+    public String salidaa;
+    public String TAG = "Response";
+    public SoapPrimitive resultString;
+    public String numeroempleado;
+    public String horass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +52,6 @@ public class scannerEntrada extends AppCompatActivity {
             String scanContent = "";
             scanContent=scanningResult.getContents();
 
-            numeroempleado = "";
             numeroempleado = scanContent;
 
             AsyncCallWS task = new AsyncCallWS();
@@ -72,8 +63,8 @@ public class scannerEntrada extends AppCompatActivity {
 
 
         }else{
-            scannerEntrada.this.recreate();
-            numeroempleado ="";
+
+
             Intent intent2 = new Intent(scannerEntrada.this,registroFalse.class);
             intent2.putExtra("entrada",entradaa);
             intent2.putExtra("salida",salidaa);
@@ -117,14 +108,13 @@ public class scannerEntrada extends AppCompatActivity {
                 Intent intent2 = new Intent(scannerEntrada.this,registroOk.class);
                 intent2.putExtra("entrada",entradaa);
                 intent2.putExtra("salida",salidaa);
-                int envhoras = Integer.parseInt(horass);
-                intent2.putExtra("horas",envhoras);
+                intent2.putExtra("horas",horass);
                 startActivity(intent2);
 
 
 
             }else{
-                scannerEntrada.this.recreate();
+
                 numeroempleado ="";
                 Intent intent2 = new Intent(scannerEntrada.this,registroFalse.class);
                 intent2.putExtra("entrada",entradaa);
@@ -132,9 +122,11 @@ public class scannerEntrada extends AppCompatActivity {
                 intent2.putExtra("horas",horass);
                 startActivity(intent2);
 
-            } }catch (Exception err)
-            {   scannerEntrada.this.recreate();
-                numeroempleado ="";
+            }
+
+            }catch (Exception err)
+            {
+
                 Intent intent2 = new Intent(scannerEntrada.this,registroFalse.class);
                 intent2.putExtra("entrada",entradaa);
                 intent2.putExtra("salida",salidaa);
@@ -149,19 +141,26 @@ public class scannerEntrada extends AppCompatActivity {
     }
 
     public void registrar() {
+
+
         String SOAP_ACTION = "http://tempuri.org/registro";
         String METHOD_NAME = "registro";
         String NAMESPACE = "http://tempuri.org/";
         String URL = "http://187.188.159.205:8090/webServiceNomina/Service.asmx";
 
         try {
+
             SoapObject Request = new SoapObject(NAMESPACE, METHOD_NAME);
             Request.addProperty("idLista",seguroHorario.idLista);
             Request.addProperty("entrada",entradaa);
+            Log.e(TAG, "Entrada: " +entradaa);
             Request.addProperty("salida", salidaa);
-            Log.e(TAG, "numero empleado: " + numeroempleado);
+            Log.e(TAG, "Salida : " +salidaa);
+            Log.e(TAG, "Numero de empleado : " +numeroempleado);
             Request.addProperty("numEmpleado",numeroempleado);
-            Request.addProperty("horas",horass);
+            int envhoras = Integer.parseInt(horass);
+            Request.addProperty("horas",envhoras);
+            Log.e(TAG, "horas : " +horass);
 
 
 
@@ -177,7 +176,7 @@ public class scannerEntrada extends AppCompatActivity {
 
 
         } catch (Exception ex) {
-           
+
             numeroempleado ="";
             Intent intent2 = new Intent(scannerEntrada.this,registroFalse.class);
             intent2.putExtra("entrada",entradaa);

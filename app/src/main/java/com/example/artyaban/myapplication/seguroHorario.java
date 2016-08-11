@@ -23,6 +23,7 @@ public class seguroHorario extends AppCompatActivity {
     String salidaa;
     String jornadaString;
     public static String idLista;
+    public static String Horas;
     String TAG = "Response";
     Button bt;
 
@@ -113,7 +114,6 @@ public class seguroHorario extends AppCompatActivity {
         Intent intent = new Intent(seguroHorario.this, registro.class);
         intent.putExtra("entrada", entradaa);
         intent.putExtra("salida", salidaa);
-
         startActivity(intent);
 
     }

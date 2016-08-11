@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 
 public class registroOk extends AppCompatActivity {
-    String entradaa;
-    String salidaa;
-    String horass;
+    public String entradaa;
+    public String salidaa;
+    public String horass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

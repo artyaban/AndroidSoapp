@@ -22,7 +22,7 @@ public class inicio extends AppCompatActivity {
     String TAG = "Response";
     Button bt;
 
-    String getCel;
+
     SoapPrimitive resultString;
      String usuarioo  ;
     String passwordd;
