@@ -151,7 +151,9 @@ public class scannerEntrada extends AppCompatActivity {
         try {
 
             SoapObject Request = new SoapObject(NAMESPACE, METHOD_NAME);
-            Request.addProperty("idLista",seguroHorario.idLista);
+            Log.e(TAG, "idLista: " +seguroHorario.idLista);
+            int listaa =  Integer.parseInt(seguroHorario.idLista);
+            Request.addProperty("idLista",listaa);
             Request.addProperty("entrada",entradaa);
             Log.e(TAG, "Entrada: " +entradaa);
             Request.addProperty("salida", salidaa);

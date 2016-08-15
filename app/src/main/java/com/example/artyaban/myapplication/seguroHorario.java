@@ -98,7 +98,8 @@ public class seguroHorario extends AppCompatActivity {
 
     public void  si(View view)
     {
-
+        AsyncCallWS task = new AsyncCallWS();
+        task.execute();
 
 
         Intent intent = new Intent(seguroHorario.this, scannerEntrada.class);
@@ -117,10 +118,6 @@ public class seguroHorario extends AppCompatActivity {
         startActivity(intent);
 
     }
-
-
-
-
 
 
 
@@ -144,17 +141,28 @@ public class seguroHorario extends AppCompatActivity {
 
             if(resultString.toString()!="false")
             {
-                AsyncCallWS task = new AsyncCallWS();
-                task.execute();
+
                 idLista =resultString.toString();
-                Intent intent2 = new Intent(seguroHorario.this,registroOk.class);
-                intent2.putExtra("entrada",entradaa);
-                intent2.putExtra("salida",salidaa);
-                startActivity(intent2);
+                AlertDialog alertDialog = new AlertDialog.Builder(seguroHorario.this).create();
+                alertDialog.setTitle("Alert");
+                alertDialog.setMessage("yo soy lista : " + idLista);
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+
+
+            //  Intent intent2 = new Intent(seguroHorario.this,registroOk.class);
+           //    intent2.putExtra("entrada",entradaa);
+            //   intent2.putExtra("salida",salidaa);
+              // startActivity(intent2);
 
             }else{
 
-                Intent intent2 = new Intent(seguroHorario.this,registroFalse.class);
+                Intent intent2 = new Intent(seguroHorario.this,nohoras.class);
 
                 intent2.putExtra("entrada",entradaa);
                 intent2.putExtra("salida",salidaa);

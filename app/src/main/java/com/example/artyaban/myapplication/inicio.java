@@ -101,7 +101,8 @@ public class inicio extends AppCompatActivity {
 
            if(resultString.toString().equals("true"))
            {
-                lider=usuarioo;
+                lider=passwordd.substring(0,5);
+
              Intent cambiar = new Intent(getApplicationContext(), registro.class);
               startActivityForResult(cambiar, 0);
 

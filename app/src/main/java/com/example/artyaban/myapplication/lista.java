@@ -45,7 +45,9 @@ public class lista extends AppCompatActivity {
         Tabla tabla = new Tabla(this, (TableLayout)findViewById(R.id.tabla));
         tabla.agregarCabecera(R.array.cabecera_tabla);
 
+        
 
+        }
         //cambia por foreach
         for(int i = 0; i < 15; i++)
         {
