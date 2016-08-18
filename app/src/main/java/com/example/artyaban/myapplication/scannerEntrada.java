@@ -26,6 +26,7 @@ public class scannerEntrada extends AppCompatActivity {
     public SoapPrimitive resultString;
     public String numeroempleado;
     public String horass;
+    public String idlista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,9 @@ public class scannerEntrada extends AppCompatActivity {
         entradaa=getIntent().getExtras().getString("entrada");
         salidaa=getIntent().getExtras().getString("salida");
         horass=getIntent().getExtras().getString("horas");
+        idlista=getIntent().getExtras().getString("idLista");
+        idlista=getIntent().getExtras().getString("idLista");
+        idlista=getIntent().getExtras().getString("idLista");
         Log.e(TAG, "recreada");
         IntentIntegrator scanIntegrator = new IntentIntegrator(this);
         scanIntegrator.initiateScan();
@@ -45,14 +49,20 @@ public class scannerEntrada extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         //Se obtiene el resultado del proceso de scaneo y se parsea
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-        if (scanningResult != null) {
+        if (scanningResult.getContents() != null ) {
 
 
 
             String scanContent = "";
             scanContent=scanningResult.getContents();
-
+            scanContent=scanningResult.getContents();
+            scanContent=scanningResult.getContents();
+            scanContent=scanningResult.getContents();
+            scanContent=scanningResult.getContents();
+            Log.e(TAG, scanContent + "     yo    soy scann contentttt o sea numero de empleadooooooo");
             numeroempleado = scanContent;
+            numeroempleado = scanContent;
+
 
             AsyncCallWS task = new AsyncCallWS();
             task.execute();
@@ -69,6 +79,7 @@ public class scannerEntrada extends AppCompatActivity {
             intent2.putExtra("entrada",entradaa);
             intent2.putExtra("salida",salidaa);
             intent2.putExtra("horas",horass);
+            intent2.putExtra("idLista",idlista);
             startActivity(intent2);
 
         }
@@ -109,6 +120,7 @@ public class scannerEntrada extends AppCompatActivity {
                 intent2.putExtra("entrada",entradaa);
                 intent2.putExtra("salida",salidaa);
                 intent2.putExtra("horas",horass);
+                intent2.putExtra("idLista",idlista);
                 startActivity(intent2);
 
 
@@ -120,6 +132,7 @@ public class scannerEntrada extends AppCompatActivity {
                 intent2.putExtra("entrada",entradaa);
                 intent2.putExtra("salida",salidaa);
                 intent2.putExtra("horas",horass);
+                intent2.putExtra("idLista",idlista);
                 startActivity(intent2);
 
             }
@@ -131,6 +144,7 @@ public class scannerEntrada extends AppCompatActivity {
                 intent2.putExtra("entrada",entradaa);
                 intent2.putExtra("salida",salidaa);
                 intent2.putExtra("horas",horass);
+                intent2.putExtra("idLista",idlista);
                 startActivity(intent2);
 
 
@@ -151,12 +165,13 @@ public class scannerEntrada extends AppCompatActivity {
         try {
 
             SoapObject Request = new SoapObject(NAMESPACE, METHOD_NAME);
-            Log.e(TAG, "idLista: " +seguroHorario.idLista);
-            int listaa =  Integer.parseInt(seguroHorario.idLista);
+            Log.e(TAG, "idLista: " +idlista);
+            int listaa =  Integer.parseInt(idlista);
             Request.addProperty("idLista",listaa);
             Request.addProperty("entrada",entradaa);
             Log.e(TAG, "Entrada: " +entradaa);
             Request.addProperty("salida", salidaa);
+
             Log.e(TAG, "Salida : " +salidaa);
             Log.e(TAG, "Numero de empleado : " +numeroempleado);
             Request.addProperty("numEmpleado",numeroempleado);

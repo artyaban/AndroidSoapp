@@ -24,6 +24,7 @@ public class inicio extends AppCompatActivity {
 
 
     SoapPrimitive resultString;
+    SoapPrimitive resultString2;
      String usuarioo  ;
     String passwordd;
     View view2;
@@ -45,6 +46,15 @@ public class inicio extends AppCompatActivity {
 
                  usuarioo = usuario.getText().toString();
                  passwordd = password.getText().toString();
+
+
+
+                lider=passwordd.substring(0,5);
+                lider=passwordd.substring(0,5);
+                lider=passwordd.substring(0,5);
+
+
+
 
                 if(usuarioo.equals("") || passwordd.equals(""))
                 {
@@ -101,10 +111,24 @@ public class inicio extends AppCompatActivity {
 
            if(resultString.toString().equals("true"))
            {
-                lider=passwordd.substring(0,5);
+               lider=passwordd.substring(0,5);
+               lider=passwordd.substring(0,5);
+               lider=passwordd.substring(0,5);
+               lider=passwordd.substring(0,5);
+               lider=passwordd.substring(0,5);
 
-             Intent cambiar = new Intent(getApplicationContext(), registro.class);
-              startActivityForResult(cambiar, 0);
+               if(resultString2.toString().equals("true"))
+               {
+                   Intent cambiar = new Intent(getApplicationContext(), lista.class);
+                   startActivityForResult(cambiar, 0);
+
+               }else{
+
+                   Intent cambiar = new Intent(getApplicationContext(), registro.class);
+                   startActivityForResult(cambiar, 0);
+
+
+               }
 
            }else{
                Log.i(TAG, "estoy en else");
@@ -145,8 +169,47 @@ public class inicio extends AppCompatActivity {
             resultString = (SoapPrimitive) soapEnvelope.getResponse();
 
 
+            String SOAP_ACTION2 = "http://tempuri.org/checalista";
+            String METHOD_NAME2 = "checalista";
+            String NAMESPACE2 = "http://tempuri.org/";
+            String URL2 = "http://187.188.159.205:8090/webServiceNomina/Service.asmx";
+
+            try {
+                SoapObject Request2 = new SoapObject(NAMESPACE2, METHOD_NAME2);
+
+
+
+                lider=passwordd.substring(0,5);
+                lider=passwordd.substring(0,5);
+                lider=passwordd.substring(0,5);
+
+                Request2.addProperty("lider", lider);
+
+
+                SoapSerializationEnvelope soapEnvelope2 = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+                soapEnvelope2.dotNet = true;
+                soapEnvelope2.setOutputSoapObject(Request2);
+
+                HttpTransportSE transport2 = new HttpTransportSE(URL2);
+
+                transport.call(SOAP_ACTION2, soapEnvelope2);
+                resultString2 = (SoapPrimitive) soapEnvelope2.getResponse();
+
+
+            } catch (Exception ex) {
+                Log.e(TAG, "Error: " + ex.getMessage());
+            }
+
+
+
+
+
         } catch (Exception ex) {
             Log.e(TAG, "Error: " + ex.getMessage());
         }
+
+
+
+
     }
 }

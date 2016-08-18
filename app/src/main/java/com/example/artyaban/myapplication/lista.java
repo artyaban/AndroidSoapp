@@ -21,6 +21,7 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class lista extends AppCompatActivity {
@@ -29,7 +30,7 @@ public class lista extends AppCompatActivity {
 
     String TAG = "Response";
     Button bt;
-
+    ArrayList<String> elementos = new ArrayList<String>();
     String getCel;
     SoapPrimitive resultString;
     String usuarioo  ;
@@ -39,28 +40,52 @@ public class lista extends AppCompatActivity {
     Activity actividad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
 
         Tabla tabla = new Tabla(this, (TableLayout)findViewById(R.id.tabla));
         tabla.agregarCabecera(R.array.cabecera_tabla);
 
-        
 
-        }
-        //cambia por foreach
-        for(int i = 0; i < 15; i++)
-        {
-            ArrayList<String> elementos = new ArrayList<String>();
+        AsyncCallWS task = new AsyncCallWS();
+        task.execute();
 
-            elementos.add("inspector "+ i );
-            elementos.add("AGREGADA" );
-            elementos.add("correcto" );
 
+
+        String [][] informacion={{"Pepito","AGREGADA","sdfsdf"},{"adasda","NOAGREGADA","asdasda"}};
+
+        for ( String inspector[] : informacion ) {
+
+
+            for(String inspector1 : inspector)
+            {
+
+
+                if (inspector1 !=null) {
+                    elementos.add("AGREGADA" );
+                }else{
+                    elementos.add(" NO AGREGADA" );
+                }
+
+            }
             tabla.agregarFilaTabla(elementos);
-        }
+            elementos=null;
+            elementos= new ArrayList<String>();
+            }
 
-    }
+
+       }
+
+
+
+
+
+
+
+
     public void ayuda(View view)
     {
         Intent intent = new Intent(lista.this, ayudaIncidencias.class);
@@ -73,42 +98,50 @@ public class lista extends AppCompatActivity {
 
     private class AsyncCallWS extends AsyncTask<Void, Void, Void> {
 
+
+
+
         @Override
         protected void onPreExecute() {
             Log.i(TAG, "onPreExecute");
         }
 
+
+
+
+
         @Override
         protected Void doInBackground(Void... params) {
             Log.i(TAG, "doInBackground");
+
+
             Login(usuarioo,passwordd);
+
+
+
             return null;
         }
 
 
-        protected void onPostExecute(Void result) {
-            Log.i(TAG, "onPostExecute");
 
-            if(resultString.toString().equals("true"))
-            {
 
-                Intent cambiar = new Intent(getApplicationContext(), registro.class);
-                startActivityForResult(cambiar, 0);
+        protected void onPostExecute(Void result)
+        {
 
-            }else{
-                Log.i(TAG, "estoy en else");
-                AlertDialog alertDialog = new AlertDialog.Builder(lista.this).create();
-                alertDialog.setTitle("Alert");
-                alertDialog.setMessage("REVISA TU USUARIO Y CONTRASEÑA");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
-            }
+
+
+
+
+
+
+
+
         }
+
+
+
+
+
 
     }
 

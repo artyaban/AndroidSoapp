@@ -9,6 +9,7 @@ public class registroOk extends AppCompatActivity {
     public String entradaa;
     public String salidaa;
     public String horass;
+    public String idlista;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,6 +17,7 @@ public class registroOk extends AppCompatActivity {
         horass=getIntent().getExtras().getString("horas");
         entradaa=getIntent().getExtras().getString("entrada");
         salidaa=getIntent().getExtras().getString("salida");
+        idlista=getIntent().getExtras().getString("idLista");
 
     }
     public void otro(View view)
@@ -25,6 +27,7 @@ public class registroOk extends AppCompatActivity {
         intent.putExtra("entrada", entradaa);
         intent.putExtra("salida", salidaa);
         intent.putExtra("horas", horass);
+        intent.putExtra("idLista", idlista);
         startActivity(intent);
     }
 
@@ -33,6 +36,7 @@ public class registroOk extends AppCompatActivity {
         Intent intent = new Intent(registroOk.this, lista.class);
         intent.putExtra("entrada", entradaa);
         intent.putExtra("salida", salidaa);
+        intent.putExtra("idLista", idlista);
         startActivity(intent);
     }
 }

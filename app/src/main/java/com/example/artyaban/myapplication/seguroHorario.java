@@ -101,13 +101,6 @@ public class seguroHorario extends AppCompatActivity {
         AsyncCallWS task = new AsyncCallWS();
         task.execute();
 
-
-        Intent intent = new Intent(seguroHorario.this, scannerEntrada.class);
-        intent.putExtra("entrada", entradaa);
-        intent.putExtra("salida", salidaa);
-        intent.putExtra("horas",jornadaString);
-        startActivity(intent);
-
     }
 
     public void  no(View view)
@@ -142,28 +135,42 @@ public class seguroHorario extends AppCompatActivity {
             if(resultString.toString()!="false")
             {
 
-                idLista =resultString.toString();
-                AlertDialog alertDialog = new AlertDialog.Builder(seguroHorario.this).create();
-                alertDialog.setTitle("Alert");
-                alertDialog.setMessage("yo soy lista : " + idLista);
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
+                idLista =resultString.toString().trim();
+                idLista =resultString.toString().trim();
+                idLista =resultString.toString().trim();
+                idLista =resultString.toString().trim();
+                idLista =resultString.toString().trim();
+                idLista =resultString.toString().trim();
+                idLista =resultString.toString().trim();
+                idLista =resultString.toString().trim();
+                idLista =resultString.toString().trim();
+
+                if(idLista.equals(null)||idLista.equals("null"))
+                {
+                    Intent intent2 = new Intent(seguroHorario.this,nohoras.class);
+                    intent2.putExtra("entrada",entradaa);
+                    intent2.putExtra("salida",salidaa);
+
+                    startActivity(intent2);
+
+                }else {
 
 
-            //  Intent intent2 = new Intent(seguroHorario.this,registroOk.class);
-           //    intent2.putExtra("entrada",entradaa);
-            //   intent2.putExtra("salida",salidaa);
-              // startActivity(intent2);
+                    Log.i(TAG, idLista + " Este es el ID DE LA LISTA");
+                    Intent intent = new Intent(seguroHorario.this, scannerEntrada.class);
+                    intent.putExtra("entrada", entradaa);
+                    intent.putExtra("salida", salidaa);
+                    intent.putExtra("horas", jornadaString);
+                    intent.putExtra("idLista",idLista);
+                    startActivity(intent);
+
+
+                }
+
 
             }else{
 
                 Intent intent2 = new Intent(seguroHorario.this,nohoras.class);
-
                 intent2.putExtra("entrada",entradaa);
                 intent2.putExtra("salida",salidaa);
                 startActivity(intent2);
