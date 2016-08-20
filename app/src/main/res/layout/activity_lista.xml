@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.artyaban.myapplication.lista"
-    android:onClick="ayuda">
+    android:gravity="top">
 
 
 
@@ -20,47 +20,98 @@
         android:id="@+id/textView22"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+    android:textColor="#010041" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="AYUDA"
         android:id="@+id/button8"
-        android:layout_below="@+id/textView22"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="ayuda" />
+        android:onClick="ayuda"
+        android:backgroundTint="#ffd600"
+        android:textColor="#ffffff"
+        android:background="#ffee58"
+        android:layout_alignRight="@+id/textView22"
+        android:layout_alignEnd="@+id/textView22"
+        android:layout_below="@+id/textView22" />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="AGREGAR INCIDENCIA"
+        android:id="@+id/button11"
+        android:layout_below="@+id/spinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#1b5e20"
+        android:textColor="#ffffff"
+        android:onClick="agregaincidencia" />
+
+
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_below="@+id/button8"
+        android:layout_toRightOf="@+id/button8"
+        android:layout_toEndOf="@+id/button8" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalView"
+        android:layout_height="match_parent"
+        android:scrollbars="horizontal|vertical"
+        android:layout_width="match_parent"
+        android:clickable="true"
+        android:layout_below="@+id/button11"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+        <ScrollView
+            android:id="@+id/layout"
+            android:layout_height="match_parent"
+            android:scrollbars="horizontal|vertical"
+
+            android:layout_width="match_parent"
+
+            android:scrollbarStyle="outsideInset"
+            android:fillViewport="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/horizontalView">
+
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/tabla"
+
+
+            android:background="#ffffff"
+            android:layout_alignBottom="@+id/layout"
+            android:layout_alignRight="@+id/layout"
+            android:layout_alignEnd="@+id/layout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:soundEffectsEnabled="true"
+            android:padding="1dp"
+
+            android:collapseColumns="">
+        </TableLayout>  </ScrollView>
+    </HorizontalScrollView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Agregar incidencia A."
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Inspector : "
         android:id="@+id/textView23"
-        android:layout_below="@+id/button8"
+        android:layout_above="@+id/button11"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView23"
-        android:layout_marginTop="15dp"
-        android:id="@+id/tabla"
-        android:clickable="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#d1d1d1"
-        android:showDividers="beginning|middle|end"
-
-        android:visibility="visible"
-        android:transitionGroup="false"
-
-        android:scrollHorizontally="true"
-        android:shrinkColumns="*"
-        >
-    </TableLayout>
 </RelativeLayout>

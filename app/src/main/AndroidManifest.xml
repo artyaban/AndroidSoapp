@@ -11,11 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".inicio">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".olvidopass" />
         <activity android:name=".registro" />
@@ -23,8 +19,15 @@
         <activity android:name=".registroOk" />
         <activity android:name=".registroFalse" />
         <activity android:name=".seguroHorario" />
-        <activity android:name=".lista" />
-        <activity android:name=".ayudaIncidencias" />
+        <activity android:name=".lista" >
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+    <activity android:name=".ayudaIncidencias" />
         <activity android:name=".nohoras"></activity>
     </application>
 

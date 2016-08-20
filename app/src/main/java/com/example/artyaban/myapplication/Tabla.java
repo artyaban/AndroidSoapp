@@ -1,10 +1,15 @@
 package com.example.artyaban.myapplication;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -45,7 +50,7 @@ public class Tabla
         TableRow fila = new TableRow(actividad);
         TableRow.LayoutParams layoutFila = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
         fila.setLayoutParams(layoutFila);
-        tabla.setColumnStretchable(3, true);
+
 
         String[] arraycabecera = rs.getStringArray(recursocabecera);
         COLUMNAS = arraycabecera.length;
@@ -54,10 +59,13 @@ public class Tabla
         {
             TextView texto = new TextView(actividad);
             layoutCelda = new TableRow.LayoutParams(obtenerAnchoPixelesTexto(arraycabecera[i]), TableRow.LayoutParams.WRAP_CONTENT);
+
+
             texto.setText(arraycabecera[i]);
             texto.setGravity(Gravity.CENTER_HORIZONTAL);
 
             texto.setLayoutParams(layoutCelda);
+            texto.setTextColor(Color.parseColor("#000000"));
 
             fila.addView(texto);
         }
@@ -72,22 +80,26 @@ public class Tabla
      * Agrega una fila a la tabla
      * @param elementos Elementos de la fila
      */
-    public void agregarFilaTabla(ArrayList<String> elementos)
+
+
+
+    public void agregarFilaTabla(ArrayList<String> elementos,String color)
     {
         TableRow.LayoutParams layoutCelda;
         TableRow.LayoutParams layoutFila = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
         TableRow fila = new TableRow(actividad);
         fila.setLayoutParams(layoutFila);
 
+        fila.setBackgroundColor(Color.parseColor(color));
         for(int i = 0; i< elementos.size(); i++)
         {
             TextView texto = new TextView(actividad);
             texto.setText(String.valueOf(elementos.get(i)));
             texto.setGravity(Gravity.CENTER_HORIZONTAL);
 
-            layoutCelda = new TableRow.LayoutParams(obtenerAnchoPixelesTexto(texto.getText().toString()), TableRow.LayoutParams.WRAP_CONTENT);
+            layoutCelda = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
             texto.setLayoutParams(layoutCelda);
-
+            texto.setTextColor(Color.parseColor("#ffffff"));
             fila.addView(texto);
         }
 
@@ -146,9 +158,9 @@ public class Tabla
     {
         Paint p = new Paint();
         Rect bounds = new Rect();
-        p.setTextSize(50);
+        p.setTextSize(120);
 
-        p.getTextBounds(texto, 0, texto.length(), bounds);
+        p.getTextBounds(texto, 5, texto.length(), bounds);
         return bounds.width();
     }
 }

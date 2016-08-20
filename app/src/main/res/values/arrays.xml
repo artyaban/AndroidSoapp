@@ -4,8 +4,6 @@
     <string-array name="cabecera_tabla">
         <item>INSPECTOR</item>
         <item>STATUS</item>
-        <item>ICONO</item>
-
     </string-array>
 
 </resources>

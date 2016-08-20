@@ -3,6 +3,7 @@ package com.example.artyaban.myapplication;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +11,9 @@ import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -23,6 +26,7 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class lista extends AppCompatActivity {
 
@@ -41,8 +45,6 @@ public class lista extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
 
@@ -54,8 +56,28 @@ public class lista extends AppCompatActivity {
         task.execute();
 
 
+        //WEB SERVICE PENDOENTE LLENAR TABLA....
+        String [][] informacion={{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"}
+        ,{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"}
+        ,{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"}
+        ,{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"}
+        ,{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"}
+        ,{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"},{"Rafael Arturo Aban Gomez  ","AGREGADA"},{"adasda","NOAGREGADA"}};
+        String color="Color.argb(255, 255, 255, 255)";
 
-        String [][] informacion={{"Pepito","AGREGADA","sdfsdf"},{"adasda","NOAGREGADA","asdasda"}};
+        List<String> list = new ArrayList<String>();
+        list.add("Android");
+        //WEBSERVICE PENDIENTE PARA LLENAR LISTA.
+
+        Spinner spinn = (Spinner)findViewById(R.id.spinner);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_spinner_item,list);
+
+        dataAdapter.setDropDownViewResource
+                (android.R.layout.simple_spinner_dropdown_item);
+
+        spinn.setAdapter(dataAdapter);
+
 
         for ( String inspector[] : informacion ) {
 
@@ -63,28 +85,25 @@ public class lista extends AppCompatActivity {
             for(String inspector1 : inspector)
             {
 
-
-                if (inspector1 !=null) {
-                    elementos.add("AGREGADA" );
-                }else{
-                    elementos.add(" NO AGREGADA" );
-                }
-
+                elementos.add(inspector1);
+                if(inspector1 ==  "AGREGADA"){color="#4CAF50";}else
+                {color="#C62828";}
             }
-            tabla.agregarFilaTabla(elementos);
+
+            tabla.agregarFilaTabla(elementos,color);
             elementos=null;
             elementos= new ArrayList<String>();
             }
 
 
        }
+public void agregaincidencia(View view)
+{
+    Spinner spinn = (Spinner)findViewById(R.id.spinner);
+    String  nombre =spinn.getSelectedItem().toString();
+    Log.e(TAG, "ir a agregar incidencia........"+nombre);
 
-
-
-
-
-
-
+}
 
     public void ayuda(View view)
     {
@@ -115,7 +134,7 @@ public class lista extends AppCompatActivity {
             Log.i(TAG, "doInBackground");
 
 
-            Login(usuarioo,passwordd);
+            Login();
 
 
 
@@ -145,9 +164,9 @@ public class lista extends AppCompatActivity {
 
     }
 
-    public void Login(String user,String pass) {
-        String SOAP_ACTION = "http://tempuri.org/Login";
-        String METHOD_NAME = "Login";
+    public void Login() {
+        String SOAP_ACTION = "http://tempuri.org/Lista";
+        String METHOD_NAME = "lista";
         String NAMESPACE = "http://tempuri.org/";
         String URL = "http://187.188.159.205:8090/webServiceNomina/Service.asmx";
 
